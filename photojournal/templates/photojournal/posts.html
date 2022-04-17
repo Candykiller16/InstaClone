@@ -1,12 +1,34 @@
 {% extends 'main.html' %}
 
-
 {% block content %}
-    {% for post in posts %}
-        <h1>{{ post.title }}</h1>
-    {% endfor %}
 
 
+<!-- Main Section -->
+<main class="projects">
 
-{% endblock %}
+    <!-- Search Result: DevList -->
+    <section class="projectsList">
+        <div class="container">
+            <div class="grid grid--three">
+
+                {% for post in posts %}
+                <div class="column">
+                    <div class="card project">
+                        <a href="{% url 'single-post' post.slug %}" class="project">
+                            <img class="project__thumbnail" src="{{post.featured_image.url}}" alt="project thumbnail"/>
+                            <div class="card__body">
+                                <h3 class="project__title">{{ post.title }}</h3>
+                                <p><a class="project__author" href="">By {{ post.owner.username }}</a></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
 

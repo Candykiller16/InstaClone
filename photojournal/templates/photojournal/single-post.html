@@ -1,7 +1,8 @@
 {% extends 'main.html' %}
 
+
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.description|linebreaks }}</p>
-    <img src="{{ post.featured_image.url }}" alt="">
-{% endblock %}
+    <img style="max-width: 500px; max-height: 500px" src="{{ post.featured_image.url }}" alt="">
+    <p>{{ post.title }}</p>
+    <p>{{ post.description }}</p>
+{% endblock content %}
