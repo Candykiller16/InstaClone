@@ -5,4 +5,7 @@
     <img style="max-width: 500px; max-height: 500px" src="{{ post.featured_image.url }}" alt="">
     <p>{{ post.title }}</p>
     <p>{{ post.description }}</p>
+
+    <a href="{% url 'update-post' post.slug %}">Update</a>
+    <a href="{% url 'delete-post' post.slug %}">Delete</a>
 {% endblock content %}

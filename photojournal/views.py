@@ -26,3 +26,25 @@ def create_post(request):
 
     context = {'form': form}
     return render(request, 'photojournal/post_form.html', context)
+
+
+def update_post(request, slug):
+    post = Post.objects.get(slug=slug)
+    form = PostForm(instance=post)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('posts')
+
+    context = {'form': form}
+    return render(request, 'photojournal/post_form.html', context)
+
+
+def delete_post(request, slug):
+    post = Post.objects.get(slug=slug)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('posts')
+    context = {'object': post}
+    return render(request, 'delete_template.html', context)

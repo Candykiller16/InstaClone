@@ -4,5 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.posts, name="posts"),
     path('create-post/', views.create_post, name="create-post"),
+    path('update-project/<slug:slug>', views.update_post, name='update-post'),
+    path('delete-project/<slug:slug>', views.delete_post, name='delete-post'),
     path('<slug:slug>/', views.post, name="single-post"),
 ]
