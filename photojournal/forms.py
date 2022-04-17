@@ -6,9 +6,9 @@ from .models import Post
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'featured_image', 'description', 'category']
+        fields = ['owner', 'title', 'featured_image', 'description', 'category']
         widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
+            'category': forms.CheckboxSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):

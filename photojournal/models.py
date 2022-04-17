@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 
@@ -28,15 +29,19 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
-    class Meta:
-        ordering = ['-created']
-
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('post', kwargs={'slug': self.slug})
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-created']
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
