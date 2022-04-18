@@ -30,24 +30,45 @@
                     <div class="singleProject__info">
                         {{ post.description }}
                     </div>
+                    <div class="comments">
+                    <h3 class="singleProject__subtitle">Feedback</h3>
+                    <h5 class="project--rating">
+                        {{ post.likes.count }} Like{{ post.likes.count|pluralize:"s" }}
+                    </h5>
+                    {% if request.user.is_authenticated and  request.user.profile != post.owner %}
+                    <form class="form" action="{% url 'single-post' post.slug %}" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form__field">
+                            <p for="formInput#textarea">{{field.label}}</p>
+                            {{field}}
+                        </div>
+                        {% endfor %}
+                        <input class="btn btn--sub btn--lg" type="submit" value="Add Comment" />
+                    </form>
+                    {% elif request.user.profile == post.owner %}
+                        <p>You cannot comment your own post</p>
+                    {% else %}
+                    <a href="{% url 'login' %}?next={{request.path}}">Please login before leaving a review</a>
+                    {% endif %}
                     <div class="commentList">
                         {% for comment in post.comments_set.all %}
-                            {% if comment.body %}
-                                <div class="comment">
-                                    <a href="{% url 'user-profile' comment.owner.id %}">
-                                        <img class="avatar avatar--md"
-                                             src="{{ comment.owner.profile_image.url }}"
-                                             alt="user"/>
-                                    </a>
-                                    <div class="comment__details">
-                                        <a href="{% url 'user-profile' comment.owner.id %}"
-                                           class="comment__author">{{ comment.owner.username }}</a>
-                                        <p class="comment__info">{{ comment.body|linebreaksbr }}</p>
-                                    </div>
-                                </div>
-                            {% endif %}
+                        {%  if comment.body %}
+                        <div class="comment">
+                            <a href="{% url 'user-profile' comment.owner.id %}">
+                                <img class="avatar avatar--md"
+                                     src="{{comment.owner.profile_image.url}}"
+                                     alt="user"/>
+                            </a>
+                            <div class="comment__details">
+                                <a href="{% url 'user-profile' comment.owner.id %}" class="comment__author">{{comment.owner.name}}</a>
+                                <p class="comment__info">{{comment.body|linebreaksbr}}</p>
+                            </div>
+                        </div>
+                        {% endif %}
                         {% endfor %}
                     </div>
+                </div>
 
                 </div>
             </div>

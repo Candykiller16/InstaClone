@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django import forms
-from .models import Post, User, Profile
+from .models import Post, User, Profile, Comments
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -41,5 +41,21 @@ class PostForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'input'})
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comments
+        fields = ['body']
+
+        labels = {
+            'body': 'Add a comment'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})

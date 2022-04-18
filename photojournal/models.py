@@ -55,7 +55,7 @@ class Category(models.Model):
 
 class Comments(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    project = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 

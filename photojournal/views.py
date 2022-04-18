@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, User, Profile
-from .forms import PostForm, CustomUserCreationForm, ProfileForm
+from .forms import PostForm, CustomUserCreationForm, ProfileForm, CommentForm
 
 
 def login_user(request):
@@ -64,9 +64,21 @@ def posts(requset):
 
 
 def post(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    context = {'post': post}
+    post = Post.objects.get(slug=slug)
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.owner = request.user.profile
+        comment.save()
+
+        messages.success(request, 'Your review was saved successfully submitted')
+        return redirect('single-post', slug=post.slug)
+    context = {'post': post, 'form': form}
     return render(request, 'photojournal/single-post.html', context)
+
 
 
 @login_required(login_url='login')
