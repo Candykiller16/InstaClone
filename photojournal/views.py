@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, User
-from .forms import PostForm, CustomUserCreationForm
+from .models import Post, User, Profile
+from .forms import PostForm, CustomUserCreationForm, ProfileForm
 
 
 def login_user(request):
@@ -47,7 +48,7 @@ def register_user(request):
             messages.success(request, 'User account was successfully registered')
 
             login(request, user)
-            return redirect('posts')
+            return redirect('account')
 
         else:
             messages.error(request, 'User has occured an error during creating profile')
@@ -68,12 +69,15 @@ def post(request, slug):
     return render(request, 'photojournal/single-post.html', context)
 
 
+@login_required(login_url='login')
 def create_post(request):
+    profile = request.user.profile
     form = PostForm()
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            post.owner = profile
             post.save()
             return redirect('posts')
 
@@ -81,8 +85,10 @@ def create_post(request):
     return render(request, 'photojournal/post_form.html', context)
 
 
+@login_required(login_url='login')
 def update_post(request, slug):
-    post = Post.objects.get(slug=slug)
+    profile = request.user.profile
+    post = profile.post_set.get(slug=slug)
     form = PostForm(instance=post)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post)
@@ -94,10 +100,43 @@ def update_post(request, slug):
     return render(request, 'photojournal/post_form.html', context)
 
 
+@login_required(login_url='login')
 def delete_post(request, slug):
-    post = Post.objects.get(slug=slug)
+    profile = request.user.profile
+    post = profile.post_set.get(slug=slug)
     if request.method == 'POST':
         post.delete()
         return redirect('posts')
     context = {'object': post}
     return render(request, 'delete_template.html', context)
+
+
+def user_profile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'photojournal/user-profile.html', context)
+
+
+@login_required(login_url='login')
+def user_account(request):
+    profile = request.user.profile
+    posts = profile.post_set.all()
+    context = {'profile': profile, 'posts': posts}
+    return render(request, 'photojournal/account.html', context)
+
+
+@login_required(login_url='login')
+def edit_account(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+
+            return redirect('account')
+
+    context = {'form': form}
+    return render(request, 'photojournal/profile_form.html', context)
