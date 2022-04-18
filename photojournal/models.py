@@ -43,6 +43,7 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created']
 
+
 class Category(models.Model):
     name = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
@@ -56,3 +57,6 @@ class Comments(models.Model):
     project = models.ForeignKey(Post, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.owner.username

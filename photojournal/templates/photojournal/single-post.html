@@ -2,10 +2,56 @@
 
 
 {% block content %}
-    <img style="max-width: 500px; max-height: 500px" src="{{ post.featured_image.url }}" alt="">
-    <p>{{ post.title }}</p>
-    <p>{{ post.description }}</p>
+    <!-- Main Section -->
+    <main class="singleProject my-md">
+        <div class="container">
+            <div class="layout">
+                <div class="column column--1of3">
+                    <h3 class="singleProject__subtitle">Categories</h3>
+                    <div class="singleProject__toolStack">
+                        {% for cat in post.category.all %}
+                            <span class="tag tag--pill tag--sub tag--lg">
+                          <small>{{ cat }}</small>
+                        </span>
+                        {% endfor %}
+                        <small></small>
+                    </div>
+                </div>
+                <div class="column column--2of3">
+                    <img class="singleProject__preview" src="{{ post.featured_image.url }}" alt="portfolio thumbnail"/>
+                    <a href="" class="singleProject__developer">{{ post.owner.name }}</a>
+                    <div>
+                        <a class="btn btn--sub btn--lg  my-md" href="{% url 'update-post' post.slug %}">Update</a>
+                        <a class="btn btn--sub btn--lg  my-md" href="{% url 'delete-post' post.slug %}">Delete</a>
+                    </div>
 
-    <a href="{% url 'update-post' post.slug %}">Update</a>
-    <a href="{% url 'delete-post' post.slug %}">Delete</a>
+                    <h2 class="singleProject__title">{{ post.title }}</h2>
+                    <h3 class="singleProject__subtitle">Description</h3>
+                    <div class="singleProject__info">
+                        {{ post.description }}
+                    </div>
+                    <div class="commentList">
+                        {% for comment in post.comments_set.all %}
+                            {% if comment.body %}
+                                <div class="comment">
+                                    <a href="">
+                                        <img class="avatar avatar--md"
+                                             src="{{ comment.owner.profile_image.url }}"
+                                             alt="user"/>
+                                    </a>
+                                    <div class="comment__details">
+                                        <a href=""
+                                           class="comment__author">{{ comment.owner.username }}</a>
+                                        <p class="comment__info">{{ comment.body|linebreaksbr }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
 {% endblock content %}

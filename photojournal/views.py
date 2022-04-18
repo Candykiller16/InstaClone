@@ -1,6 +1,59 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
-from .forms import PostForm
+from .models import Post, User
+from .forms import PostForm, CustomUserCreationForm
+
+
+def login_user(request):
+    page = 'login'
+    if request.user.is_authenticated:
+        return redirect('posts')
+
+    if request.method == 'POST':
+        username = request.POST['username'].lower()
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect(request.GET['next'] if 'next' in request.GET else 'posts')
+        else:
+            messages.error(request, 'Username or password incorrect')
+
+    return render(request, 'photojournal/login_register.html')
+
+
+#
+#
+def logout_user(request):
+    logout(request)
+    messages.info(request, 'User was successfully logged out')
+    return redirect('login')
+
+
+def register_user(request):
+    page = 'register'
+    form = CustomUserCreationForm()
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+
+            messages.success(request, 'User account was successfully registered')
+
+            login(request, user)
+            return redirect('posts')
+
+        else:
+            messages.error(request, 'User has occured an error during creating profile')
+
+    context = {'page': page, 'form': form}
+    return render(request, 'photojournal/login_register.html', context)
 
 
 def posts(requset):
