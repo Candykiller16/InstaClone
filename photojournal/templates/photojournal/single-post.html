@@ -20,11 +20,6 @@
                 <div class="column column--2of3">
                     <img class="singleProject__preview" src="{{ post.featured_image.url }}" alt="portfolio thumbnail"/>
                     <a href="{% url 'user-profile' post.owner.id %}" class="singleProject__developer">{{ post.owner.name }}</a>
-                    <div>
-                        <a class="btn btn--sub btn--lg  my-md" href="{% url 'update-post' post.slug %}">Update</a>
-                        <a class="btn btn--sub btn--lg  my-md" href="{% url 'delete-post' post.slug %}">Delete</a>
-                    </div>
-
                     <h2 class="singleProject__title">{{ post.title }}</h2>
                     <h3 class="singleProject__subtitle">Description</h3>
                     <div class="singleProject__info">
@@ -35,7 +30,22 @@
                     <h5 class="project--rating">
                         {{ post.likes.count }} Like{{ post.likes.count|pluralize:"s" }}
                     </h5>
-                    {% if request.user.is_authenticated and  request.user.profile != post.owner %}
+
+                    {% if request.user.is_authenticated %}
+                        <form action="{% url 'post-like' post.slug %}" method="POST">
+                        {% csrf_token %}
+                        {% if is_liked %}
+                            <button class="btn btn--sub btn--lg" type="submit" name="post_id" value="{{ post.slug }}">Dislike</button>
+                        {% else %}
+                            <button class="btn btn--sub btn--lg" type="submit" name="post_id" value="{{ post.slug }}">Like</button>
+                        {% endif %}
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}?next={{request.path}}">Please login before like</a>
+                    {% endif %}
+
+                        <br><br>
+                    {% if request.user.is_authenticated %}
                     <form class="form" action="{% url 'single-post' post.slug %}" method="POST">
                         {% csrf_token %}
                         {% for field in form %}
@@ -46,8 +56,6 @@
                         {% endfor %}
                         <input class="btn btn--sub btn--lg" type="submit" value="Add Comment" />
                     </form>
-                    {% elif request.user.profile == post.owner %}
-                        <p>You cannot comment your own post</p>
                     {% else %}
                     <a href="{% url 'login' %}?next={{request.path}}">Please login before leaving a review</a>
                     {% endif %}

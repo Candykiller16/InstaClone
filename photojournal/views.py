@@ -65,7 +65,10 @@ def posts(requset):
 
 def post(request, slug):
     post = Post.objects.get(slug=slug)
+    is_liked = False
     form = CommentForm()
+    if post.likes.filter(id=request.user.id).exists():
+        is_liked = True
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -76,9 +79,8 @@ def post(request, slug):
 
         messages.success(request, 'Your review was saved successfully submitted')
         return redirect('single-post', slug=post.slug)
-    context = {'post': post, 'form': form}
+    context = {'post': post, 'form': form, 'is_liked': is_liked}
     return render(request, 'photojournal/single-post.html', context)
-
 
 
 @login_required(login_url='login')
@@ -121,6 +123,17 @@ def delete_post(request, slug):
         return redirect('posts')
     context = {'object': post}
     return render(request, 'delete_template.html', context)
+
+
+@login_required(login_url='login')
+def like_post(request, slug):
+    post = Post.objects.get(slug=slug)
+    is_liked = post.likes.filter(pk=request.user.id).exists()
+    if is_liked:
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('single-post', slug=post.slug, )
 
 
 def user_profile(request, pk):
