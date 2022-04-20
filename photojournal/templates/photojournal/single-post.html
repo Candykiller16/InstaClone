@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load i18n %}
 
 {% block content %}
     <!-- Main Section -->
@@ -7,7 +7,7 @@
         <div class="container">
             <div class="layout">
                 <div class="column column--1of3">
-                    <h3 class="singleProject__subtitle">Categories</h3>
+                    <h3 class="singleProject__subtitle">{% trans 'Categories' %}</h3>
                     <div class="singleProject__toolStack">
                         {% for cat in post.category.all %}
                             <span class="tag tag--pill tag--sub tag--lg">
@@ -21,12 +21,12 @@
                     <img class="singleProject__preview" src="{{ post.featured_image.url }}" alt="portfolio thumbnail"/>
                     <a href="{% url 'user-profile' post.owner.id %}" class="singleProject__developer">{{ post.owner.name }}</a>
                     <h2 class="singleProject__title">{{ post.title }}</h2>
-                    <h3 class="singleProject__subtitle">Description</h3>
+                    <h3 class="singleProject__subtitle">{% trans 'Description' %}</h3>
                     <div class="singleProject__info">
                         {{ post.description }}
                     </div>
                     <div class="comments">
-                    <h3 class="singleProject__subtitle">Feedback</h3>
+                    <h3 class="singleProject__subtitle">{% trans 'Feedback' %}</h3>
                     <h5 class="project--rating">
                         {{ post.likes.count }} Like{{ post.likes.count|pluralize:"s" }}
                     </h5>
@@ -41,7 +41,7 @@
                         {% endif %}
                         </form>
                     {% else %}
-                        <a href="{% url 'login' %}?next={{request.path}}">Please login before like</a>
+                        <a href="{% url 'login' %}?next={{request.path}}">{% trans 'Please login before like' %}</a>
                     {% endif %}
 
                         <br><br>
@@ -54,10 +54,10 @@
                             {{field}}
                         </div>
                         {% endfor %}
-                        <input class="btn btn--sub btn--lg" type="submit" value="Add Comment" />
+                        <input class="btn btn--sub btn--lg" type="submit" value="{% trans 'Add Comment' %}" />
                     </form>
                     {% else %}
-                    <a href="{% url 'login' %}?next={{request.path}}">Please login before leaving a review</a>
+                    <a href="{% url 'login' %}?next={{request.path}}">{% trans 'Please login before leaving a comment' %}</a>
                     {% endif %}
                     <div class="commentList">
                         {% for comment in post.comments_set.all %}

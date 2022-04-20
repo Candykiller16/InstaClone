@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load i18n %}
 {% block content %}
 
 
@@ -20,7 +20,7 @@
                                         <h3 class="project__title">{{ post.title }}</h3>
                                         <p>
                                             <a class="project__author"
-                                               href="{% url 'user-profile' post.owner.id %}">By {{ post.owner.username }}</a>
+                                               href="{% url 'user-profile' post.owner.id %}">{% trans 'By' %} {{ post.owner.username }}</a>
                                         </p>
                                         <p class="project--rating">
                                             <span style="font-weight: bold;">{{ post.likes.count }} Like{{ post.likes.count|pluralize:"s" }}</span>

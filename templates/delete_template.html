@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load i18n %}
 {% block content %}
 
     <main class="formPage my-xl">
@@ -9,9 +9,9 @@
 
                 <form class="form" method="POST">
                     {% csrf_token %}
-                        <p>Are you sure you want to delete "{{object}}"</p>
-                        <a class="btn btn--sub btn--lg  my-md" href="{{request.GET.next}}">Back</a>
-                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Confirm">
+                        <p>{% trans 'Are you sure you want to delete' %} "{{object}}"</p>
+                        <a class="btn btn--sub btn--lg  my-md" href="{{request.GET.next}}">{% trans 'Back' %}</a>
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="{% trans 'Confirm' %}">
                 </form>
             </div>
         </div>

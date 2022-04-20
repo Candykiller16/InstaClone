@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-21 01:55+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: photojournal/templates/photojournal/account.html:12
+#: photojournal/templates/photojournal/account.html:40
+msgid "Edit"
+msgstr "Редактировать"
+
+#: photojournal/templates/photojournal/account.html:21
+msgid "About Me"
+msgstr "Обо Мне"
+
+#: photojournal/templates/photojournal/account.html:25
+#: photojournal/templates/photojournal/user-profile.html:23
+#: templates/navbar.html:34
+msgid "Posts"
+msgstr "Посты"
+
+#: photojournal/templates/photojournal/account.html:26
+msgid "Add Post"
+msgstr "Добавить Пост"
+
+#: photojournal/templates/photojournal/account.html:42
+msgid "Delete"
+msgstr "Удалить"
+
+#: photojournal/templates/photojournal/login_register.html:15
+msgid "Register an Account"
+msgstr "Зарегистрировать учетную запись"
+
+#: photojournal/templates/photojournal/login_register.html:16
+msgid "Create a new user account"
+msgstr "Создайте новую учетную запись пользователя"
+
+#: photojournal/templates/photojournal/login_register.html:44
+msgid "Already have an Account?"
+msgstr "У вас уже есть учетная запись?"
+
+#: photojournal/templates/photojournal/login_register.html:45
+msgid "Log In"
+msgstr "Авторизоваться"
+
+#: photojournal/templates/photojournal/login_register.html:62
+msgid "Account Login"
+msgstr "Вход в учетную запись"
+
+#: photojournal/templates/photojournal/login_register.html:63
+msgid "Hello, Welcome Back!"
+msgstr "Привет, С Возвращением!"
+
+#: photojournal/templates/photojournal/login_register.html:70
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: photojournal/templates/photojournal/login_register.html:77
+msgid "Password"
+msgstr "Пароль"
+
+#: photojournal/templates/photojournal/login_register.html:88
+msgid "Don’t have an Account?"
+msgstr "У вас нет учетной записи?"
+
+#: photojournal/templates/photojournal/login_register.html:89
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+#: photojournal/templates/photojournal/post_form.html:21
+#: photojournal/templates/photojournal/profile_form.html:22
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: photojournal/templates/photojournal/posts.html:23
+#: photojournal/templates/photojournal/user-profile.html:32
+msgid "By"
+msgstr "От"
+
+#: photojournal/templates/photojournal/single-post.html:10
+msgid "Categories"
+msgstr "Категории"
+
+#: photojournal/templates/photojournal/single-post.html:24
+msgid "Description"
+msgstr "Описание"
+
+#: photojournal/templates/photojournal/single-post.html:29
+msgid "Feedback"
+msgstr "Обратная связь"
+
+#: photojournal/templates/photojournal/single-post.html:44
+msgid "Please login before like"
+msgstr "Пожалуйста, войдите в систему, прежде чем ставить лайк"
+
+#: photojournal/templates/photojournal/single-post.html:57
+msgid "Add Comment"
+msgstr "Добавить комментарий"
+
+#: photojournal/templates/photojournal/single-post.html:60
+msgid "Please login before leaving a comment"
+msgstr "Пожалуйста, войдите в систему, прежде чем оставлять комментарий"
+
+#: photojournal/templates/photojournal/user-profile.html:19
+msgid "About User"
+msgstr "О Пользователе"
+
+#: templates/delete_template.html:12
+msgid "Are you sure you want to delete"
+msgstr "Вы уверены, что хотите удалить"
+
+#: templates/delete_template.html:13
+msgid "Back"
+msgstr "Назад"
+
+#: templates/delete_template.html:14
+msgid "Confirm"
+msgstr "Подтверждать"
+
+#: templates/navbar.html:37
+msgid "My Account"
+msgstr "Мой аккаунт"
+
+#: templates/navbar.html:38
+msgid "LogOut"
+msgstr "Выход из системы"
+
+#: templates/navbar.html:40
+msgid "Login/Sign Up"
+msgstr "Вход в Систему/Регистрация"
