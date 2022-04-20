@@ -15,6 +15,8 @@ def get_routes(request):
 
         {'POST': '/api/v1/users/token'},
         {'POST': '/api/v1/users/token/refresh'},
+        {'POST': '/api/v1/users/token/verify'},
+
     ]
     return Response(routes)
 
