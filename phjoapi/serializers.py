@@ -2,17 +2,16 @@ from rest_framework import serializers
 from photojournal.models import Post, Profile, Comments, Category
 
 
-class CommentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Comments
-        fields = '__all__'
-
-
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['id', 'name', 'email', 'username', 'short_intro', 'bio']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ['body']
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
