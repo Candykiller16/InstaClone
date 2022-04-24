@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'InstaClone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_db',
-        'USER': 'django',
+        'NAME': 'postgres',
+        'USER': 'postgres',
         'PASSWORD': '1234',
-        'HOST': 'database',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
