@@ -25,9 +25,8 @@ SECRET_KEY = 'django-insecure-fk1qexd*8ljmm019u4nk3q9!me8gh5@va244@*4^v_e41g7$mg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -84,10 +83,10 @@ WSGI_APPLICATION = 'InstaClone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'insta_clone',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'NAME': 'django_db',
+        'USER': 'django',
+        'PASSWORD': '1234',
+        'HOST': 'database',
         'PORT': '5432',
     }
 }
@@ -129,6 +128,10 @@ LANGUAGES = [
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'ru'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
