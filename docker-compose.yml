@@ -6,7 +6,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - DATABASE_NAME="${DATABASE_NAME}"
+      - DATABASE_USER="${DATABASE_USER}"
+      - DATABASE_PASS="${DATABASE_PASS}"
   web:
     build: .
     command: sh -c "
@@ -20,5 +22,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - SECRET_KEY="${SECRET_KEY}"
 volumes:
   postgres_data:
