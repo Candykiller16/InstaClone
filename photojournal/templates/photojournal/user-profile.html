@@ -11,6 +11,7 @@
               <img class="avatar avatar--xl" src="{{profile.profile_image.url}}" />
               <h2 class="dev__name">{{profile.name}}</h2>
               <p class="dev__title">{{profile.short_intro}}</p>
+                <a href="{% url 'pdf' profile.pk %}">PDF</a>
             </div>
           </div>
         </div>

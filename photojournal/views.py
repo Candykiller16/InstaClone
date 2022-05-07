@@ -5,6 +5,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, User, Profile
 from .forms import PostForm, CustomUserCreationForm, ProfileForm, CommentForm
 
+import os
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
 
 def login_user(request):
     page = 'login'
@@ -165,3 +170,24 @@ def edit_account(request):
 
     context = {'form': form}
     return render(request, 'photojournal/profile_form.html', context)
+
+
+@login_required(login_url='login')
+def render_pdf_view(request, pk):
+    profile = Profile.objects.get(id=pk)
+    template_path = 'photojournal/profile_pdf.html'
+    context = {'profile': profile}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

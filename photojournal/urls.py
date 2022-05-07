@@ -11,6 +11,7 @@ urlpatterns = [
     path('account/', views.user_account, name='account'),
     path('edit-account/', views.edit_account, name='edit-account'),
 
+    path('pdf/<int:pk>', views.render_pdf_view, name='pdf'),
     path('', views.posts, name="posts"),
     path('create-post/', views.create_post, name="create-post"),
     path('update-post/<slug:slug>', views.update_post, name='update-post'),
