@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'modeltranslation',
 
     'photojournal.apps.PhotojournalConfig',
+
+    'django_seed',
 ]
 
 MIDDLEWARE = [
