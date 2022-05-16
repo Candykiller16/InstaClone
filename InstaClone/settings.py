@@ -14,10 +14,8 @@ import environ
 from datetime import timedelta
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 env = environ.Env()
 environ.Env.read_env('../.env')
@@ -48,6 +46,7 @@ INSTALLED_APPS = [
     'photojournal.apps.PhotojournalConfig',
 
     'django_seed',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -167,6 +167,30 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+LOGIN_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = (
+    # бекенд авторизации через Вконтакте
+    'social_core.backends.vk.VKOAuth2',
+    # бекенд авторизации через Google+
+    'social_core.backends.google.GoogleOAuth2',
+
+    'social_core.backends.github.GithubOAuth2',
+    # бекенд классической аутентификации, чтобы работала авторизация через обычный login
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '8090043'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'QMdZGJAIrCDDAAAGb7z7'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '522574186845-145cf28p95qjr99s0mtvmvuiplihqse1.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+SOCIAL_AUTH_GITHUB_KEY = 'b280e7d8f8b9e31d195f'
+SOCIAL_AUTH_GITHUB_SECRET = '2d6eeacaca6596f1959095a047e78c6ce6294e8b'
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

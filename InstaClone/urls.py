@@ -26,6 +26,7 @@ urlpatterns = [
 ] + i18n_patterns(
     path('i18n/', include('django.conf.urls.i18n')),
     path('', include('photojournal.urls')),
+    path('', include('social_django.urls')),
 )
 
 
