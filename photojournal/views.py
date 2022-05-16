@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, User, Profile
 from .forms import PostForm, CustomUserCreationForm, ProfileForm, CommentForm
-
+from .decorators import is_staff_user_only
 import os
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -89,6 +89,7 @@ def post(request, slug):
 
 
 @login_required(login_url='login')
+@is_staff_user_only
 def create_post(request):
     profile = request.user.profile
     form = PostForm()
